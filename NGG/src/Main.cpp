@@ -1,5 +1,4 @@
 #include "GuessGame.h"
-#include <iostream>
 
 int main()
 {
