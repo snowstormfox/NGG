@@ -3,7 +3,7 @@
 class GuessGame
 {
 public:
-	void RndNum();
+	int RndNum();
 	bool CheckGuess(int& g);
 	void Run();
 	void Reset();
@@ -16,6 +16,5 @@ private:
 	int guess = 0;
 	int score = 0;
 	int playAgain = 0;
-	bool isRunning = true;
 	bool isPlaying = true;
 };

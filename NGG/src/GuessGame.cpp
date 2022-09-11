@@ -2,10 +2,11 @@
 #include <string>
 #include <iostream>
 
-void GuessGame::RndNum()
+int GuessGame::RndNum()
 {
-	srand((unsigned)time(0)); //seed random number generator
-	secretNum = rand() % 100 + 1; // random number between 1 and 100
+	srand((unsigned)time(0));
+	secretNum = rand() % 100 + 1;
+	return secretNum;
 }
 
 bool GuessGame::CheckGuess(int& g)
@@ -45,20 +46,20 @@ void GuessGame::Reset()
 
 void GuessGame::OutOfTries()
 {
-	std::cout << "Game Over!\nYour score was: " << score << "\n";
+	std::cout << "Game Over!\n";
+	std::cout << "The correct number was: " << secretNum << "\n";
+	std::cout << "Your score was: " << score << "\n";
 	std::cout << "Do yo want to play again (1 for yes, and 0 for no)? ";
 	std::cin >> playAgain;
 
 	if (playAgain == 1)
 	{
 		Reset();
-		Introduce();
-		isPlaying = true;
+		Run();
 	}
 
 	else 
 	{
-		isRunning = false;
 		isPlaying = false;
 	}
 }
@@ -67,26 +68,23 @@ void GuessGame::Run()
 {
 	Introduce();
 
-	while (isRunning)
+	while (isPlaying)
 	{
-		while (isPlaying)
+		std::cout << "Enter a guess between 1 and 100: ";
+		std::cin >> guess;
+		tries--;
+
+		if (CheckGuess(guess))
 		{
-			std::cout << "Enter a guess between 1 and 100: ";
-			std::cin >> guess;
-			tries--;
+			score++;
+			tries = 5;
+			RndNum();
+			continue;
+		}
 
-			if (CheckGuess(guess))
-			{
-				score++;
-				tries = 5;
-				Introduce();
-				continue;
-			}
-
-			else if (tries == 0)
-			{
-				OutOfTries();
-			}
+		else if (tries == 0)
+		{
+			OutOfTries();
 		}
 	}
 }
